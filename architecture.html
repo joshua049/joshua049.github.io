@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<!--
+	Linear by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Architecture</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+	</head>
+	<body>
+
+	<!-- Header -->
+		<div id="header">
+			<div id="nav-wrapper"> 
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li class="active"><a href="index.html">Introduction</a></li>
+						<li><a href="architecture.html">Architecture</a></li>
+						<li><a href="implementation.html">Implementation</a></li>
+                        <li><a href="result.html">Performance</a></li>
+                        <li><a href="team.html">Team</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="container"> 
+				
+				<!-- Logo -->
+				<div id="logo">
+					<h1 style="font-size: 0.8em;"><a href="#">Attention tracking in online learning<br>by using gaze estimation</a></h1>
+				</div>
+			</div>
+		</div>
+	<!-- Header --> 
+
+	<!-- Main -->
+		<div id="main">
+			<div id="content" class="container">
+				<section>
+					<header>
+						<h2>Architecture</h2>
+                        <span class="byline">A real-time client-server system constructed by using ZeroMQ</span>
+                        
+                    </header>
+                    <img src="images/arch.PNG" width="600px" height="360px">
+                    <div style="font-size: 1.2em;">
+                        <p>由於我們利用深度學習的方法進行眼球追蹤，因此計算過程中將消耗大量的 GPU 資源。為了確保我們的系統能夠在所有裝置上順利地運行，我們決定將眼球追蹤相關的運算移至遠端的伺服器上。</p>
+                        <p>我們透過 ZeroMQ 函式庫建構了一個 client-server 的系統來滿足連線的需求。使用者在 local 端執行 client 程式，client 與 server 成功連線之後會開啟 web camera 進行拍攝，並利用 Dlib 函式庫擷取畫面中的人臉回傳 server；運行在遠端伺服器上的 server 程式收到 client 傳來的臉部圖片後會將圖片通過 CNN Model，計算出使用者的 gaze point。client 收到 server 回傳的結果後判斷使用者的 gaze point 是否坐落於應該凝視的範圍內，再決定是否要透過瀏覽器對使用者進行提醒。</p>
+                    </div>
+                        
+                    <img src="images/broswershot.png" width="600px" height="360px">
+				</section>
+			</div>
+		</div>
+	<!-- /Main -->
+
+
+	<!-- Footer -->
+		<div id="footer">
+			<div class="container">
+				<section>
+					<header>
+						<h2>CV LAB</h2>
+					</header>
+				</section>
+			</div>
+		</div>
+	<!-- /Footer -->
+
+	<!-- Copyright -->
+		<div id="copyright">
+			<div class="container">
+				Design: <a href="http://templated.co">TEMPLATED</a> Images: <a href="http://unsplash.com">Unsplash</a> (<a href="http://unsplash.com/cc0">CC0</a>)
+			</div>
+		</div>
+
+
+	</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<!--
+	Linear by TEMPLATED
+    templated.co @templatedco
+    Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>Implementation</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,700,500,900' rel='stylesheet' type='text/css'>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-panels.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+		</noscript>
+	</head>
+	<body>
+
+	<!-- Header -->
+		<div id="header">
+			<div id="nav-wrapper"> 
+				<!-- Nav -->
+				<nav id="nav">
+					<ul>
+						<li class="active"><a href="index.html">Introduction</a></li>
+						<li><a href="architecture.html">Architecture</a></li>
+						<li><a href="implementation.html">Implementation</a></li>
+                        <li><a href="result.html">Performance</a></li>
+                        <li><a href="team.html">Team</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div class="container"> 
+				
+				<!-- Logo -->
+				<div id="logo">
+					<h1 style="font-size: 0.8em;"><a href="#">Attention tracking in online learning<br>by using gaze estimation</a></h1>
+					<!-- <span class="tag">By TEMPLATED</span> -->
+				</div>
+			</div>
+		</div>
+	<!-- Header --> 
+
+	<!-- Main -->
+		<div id="main">
+			<div id="content" class="container">
+				<section>
+					<header>
+						<h2>Implementation</h2>
+                    </header>
+                    <br>
+
+                    <h3 style="font-size: 1.5em;">CNN Model</h3>          
+                    <img src="images/CNN.png">
+                    <p style="font-size: 1.2em;">我們主要的 model 架構為 fully convolution network，前面使用 resnet18 取 feature，接著使用四層 fully convolution layer 作為 regression layer。使用 resnet18 而非更深的 model是由於我們的 dataset 較小，使用能力太強的 model 很容易出現 overfitting 的現象，因此我們發現使用最簡潔的resnet18 來擷取 feature 效果最為顯著。在測試的過程中，也發現使用 fully convolution layer 不僅能減少使用的參數，效果也比一般接fully connected layer 好，因此我們決定使用這個架構。</p>
+                    <br>
+
+                    <h3 style="font-size: 1.5em;">Calibration</h3>
+                    <img src="images/calibration.png" width="600px" height="360px">
+                    <p style="font-size: 1.2em;">為了提升實驗上的成效，我們在系統剛開啟時，會提示使用者依序將視線固定在左上及右下兩個角落的校正點，依照 model 預測使用者注視校正點時的結果估計出實際 gaze point 位於螢幕的哪個位置，以此推算使用者注視的位置對應到螢幕上的換算公式。</p>
+                    <p style="font-size: 1.2em;">除此之外，為了提高應用層面上的準確度，我們也針對 face position 進行分析。由於我們的 model 只以臉部圖片作為輸入，因此依照臉部的位置與螢幕中心的差距產生一個修正向量，針對預測結果進行修正。</p>
+                    <br>
+
+                    <h3 style="font-size: 1.5em;">Judge</h3>
+                    <br>
+                    <p style="font-size: 1.2em;">經過上述的計算之後，我們可以做到相當精準的預測，但是實際進行判斷時，容易受到雜訊影響，且使用者偶爾會注視螢幕外的地方，若系統的提醒過於頻繁，將嚴重影響使用體驗。我們將每個 frame 的預測結果存入 sliding window 中，若 sliding window 中分心的比例過高 ( ≧ 0.5 )，才會對使用者提醒。</p>
+                    <br>
+
+				</section>
+			</div>
+		</div>
+	<!-- /Main -->
+
+
+	<!-- Footer -->
+	<!-- /Footer -->
+	<div id="footer">
+		<div class="container">
+			<section>
+				<header>
+					<h2>CV LAB</h2>
+				</header>
+			</section>
+		</div>
+	</div>
+
+	<!-- Copyright -->
+		<div id="copyright">
+			<div class="container">
+				Design: <a href="http://templated.co">TEMPLATED</a> Images: <a href="http://unsplash.com">Unsplash</a> (<a href="http://unsplash.com/cc0">CC0</a>)
+			</div>
+		</div>
+
+
+	</body>
+</html>
